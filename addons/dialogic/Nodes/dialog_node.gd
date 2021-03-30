@@ -81,8 +81,8 @@ func start():
 
 func load_config_files():
 	if not Engine.is_editor_hint():
-		# Make sure saves are ready
-		DialogicSingleton.init(reset_saves)
+		if reset_saves:
+			DialogicSingleton.init(reset_saves)
 		definitions = DialogicSingleton.get_definitions()
 	else:
 		definitions = DialogicResources.get_default_definitions()
@@ -750,6 +750,13 @@ func load_theme(filename):
 		$TextBubble/NameLabel.set('custom_constants/shadow_offset_x', name_shadow_offset.x)
 		$TextBubble/NameLabel.set('custom_constants/shadow_offset_y', name_shadow_offset.y)
 	$TextBubble/NameLabel.rect_position.y = theme.get_value('name', 'bottom_gap', 48) * -1
+	
+	
+	# Setting next indicator animation
+	$TextBubble/NextIndicator.self_modulate = Color('#ffffff')
+	$TextBubble/NextIndicator/AnimationPlayer.play(
+		theme.get_value('next_indicator', 'animation', 'Up and down')
+	)
 	
 	return theme
 
