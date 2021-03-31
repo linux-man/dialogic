@@ -5,6 +5,19 @@
 
 Create dialogs, characters and scenes to display conversations in your Godot games. 
 
+## Why this repository?
+
+Because there is one last param. If Dialogic is called with stop_on_load=true, timeline and basically all dialog_node data can be edited before a real "start".
+Code example - dynamic portrait change:
+
+```gdscript
+var new_dialog = Dialogic.start(timeline, false "res://addons/dialogic/Dialog.tscn", false, true)
+	for item in new_dialog.dialog_script.events:
+		if item.get("action") == "join" && item.get("portrait") == "player":
+			item.portrait = $"/root/Player".sprite_string
+	new_dialog.start()
+```
+
 ## Contents
 
 - [Changelog](#-changelog)
